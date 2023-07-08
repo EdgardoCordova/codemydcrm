@@ -6,11 +6,11 @@ from .forms import SignUpForm
 # Create your views here.
 
 def home(request):
-    # Check to see if loggin in
+    # Check to see if logging in
     if request.method == 'POST':
         username = request.POST['username']
         password = request.POST['password']
-        # authenticate
+        # Authenticate
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
@@ -22,12 +22,10 @@ def home(request):
     else:
         return render(request, 'home.html', {})
 
-def login_user(request):
-    pass
-    
 def logout_user(request):
     logout(request)
-    messages.success(request, "you have been logged out!" )
+    messages.success(request, "You have been logged out!" )
+    return redirect('home')
 
 def register_user(request):
     if request.method == 'POST':
@@ -39,6 +37,9 @@ def register_user(request):
             password = form.cleaned_data['password1']
             user = authenticate(username=username, password=password)
             login(request, user)
-            
-    return render(request, 'register.html', {})
+            messages.success(request, "You have succesfully registered!")
+            return redirect('home')
+    else:
+        form = SignUpForm()
+        return render(request, 'register.html', {'form':form})
     
