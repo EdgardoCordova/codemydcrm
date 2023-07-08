@@ -40,6 +40,7 @@ def register_user(request):
             messages.success(request, "You have succesfully registered!")
             return redirect('home')
     else:
-        form = SignUpForm()
+        form = SignUpForm()     # aqui no se pasa request, ya que hay que completar el formulario
         return render(request, 'register.html', {'form':form})
     
+    return render(request, 'register.html', {'form':form})
