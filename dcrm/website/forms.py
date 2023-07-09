@@ -2,7 +2,7 @@
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django import forms
-#from .models import Record
+from .models import Record
 
 
 class SignUpForm(UserCreationForm):
@@ -32,4 +32,20 @@ class SignUpForm(UserCreationForm):
         self.fields['password2'].widget.attrs['placeholder'] = 'Confirme Contrasenia'
         self.fields['password2'].label = ''
         self.fields['password2'].help_text = '<span class="form-text text-muted"><small>Enter the same password as before, for verification.</small></span>'	
+
+# Create Add Record Form
+class AddRecordForm(forms.ModelForm):
+    first_name = forms.CharField(label='', required=True, widget=forms.widgets.TextInput(attrs={'placeholder': 'Nombre', 'class':'form-control'})) 
+    last_name = forms.CharField(label='',required=True, widget=forms.widgets.TextInput(attrs={'placeholder': 'Apellido', 'class':'form-control'}))
+    email = forms.CharField(label='', required=True, widget=forms.widgets.TextInput(attrs={'placeholder': 'Email', 'class':'form-control'}))
+    phone = forms.CharField(label='', required=True, widget=forms.widgets.TextInput(attrs={'placeholder': 'Telefono', 'class':'form-control'}))
+    address = forms.CharField(label='', required=True, widget=forms.widgets.TextInput(attrs={'placeholder': 'Direccion', 'class':'form-control'}))
+    city = forms.CharField(label='', required=True, widget=forms.widgets.TextInput(attrs={'placeholder': 'Ciudad', 'class':'form-control'}))
+    state = forms.CharField(label='', required=True, widget=forms.widgets.TextInput(attrs={'placeholder': 'Estado', 'class':'form-control'}))
+    zipcode =forms.CharField(label='', required=True, widget=forms.widgets.TextInput(attrs={'placeholder': 'Codigo ZIP', 'class':'form-control'}))
+
+    class Meta:
+        model = Record
+        exclude = ('user',)     # inclulira todos los demás
+
 
